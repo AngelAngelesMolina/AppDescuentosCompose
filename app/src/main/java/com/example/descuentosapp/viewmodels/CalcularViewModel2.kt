@@ -22,12 +22,13 @@ class CalcularViewModel2 : ViewModel() {
 //        precio = value
 //    }
 
-    fun onValue(value:String, text:String){
-        when    (text){
+    fun onValue(value: String, text: String) {
+        when (text) {
             "precio" -> precio = value
             "descuento" -> descuento = value
         }
     }
+
     var precioDescuento by mutableStateOf(0.0)
         private set //hacer privada
     var totalDescuento by mutableStateOf(0.0)
@@ -41,4 +42,33 @@ class CalcularViewModel2 : ViewModel() {
         precio = "afas"
     }
 
+    fun calcular() {
+        if (precio != "" && descuento != "") {
+            precioDescuento = calcularPrecio(precio.toDouble(), descuento.toDouble())
+            totalDescuento = calcularDescuento(precio.toDouble(), descuento.toDouble())
+        } else {
+            showAlert = true
+        }
+    }
+
+    private fun calcularPrecio(precio: Double, descuento: Double): Double {
+        val res = precio - calcularDescuento(precio, descuento)
+        return kotlin.math.round(res * 100) / 100.0
+    }
+
+    private fun calcularDescuento(precio: Double, descuento: Double): Double {
+        val res = precio * (1 - descuento / 100)
+        return kotlin.math.round(res * 100) / 100.0
+    }
+
+    fun limpiar() {
+        precio = ""
+        descuento = ""
+        precioDescuento = 0.0
+        totalDescuento = 0.0
+    }
+
+    fun cancelAlert() {
+        showAlert = false
+    }
 }
