@@ -6,22 +6,38 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class CalcularViewModel2  : ViewModel(){
+class CalcularViewModel2 : ViewModel() {
 
     var precio by mutableStateOf("")
-    private set //hacer privada
+        private set //hacer privada
+
     var descuento by mutableStateOf("")
-    private set //hacer privada
+        private set //hacer privada
+
+//    fun onValueDescuento(value: String) {
+//        descuento = value
+//    }
+//
+//    fun onValuePrecio(value: String) {
+//        precio = value
+//    }
+
+    fun onValue(value:String, text:String){
+        when    (text){
+            "precio" -> precio = value
+            "descuento" -> descuento = value
+        }
+    }
     var precioDescuento by mutableStateOf(0.0)
-    private set //hacer privada
+        private set //hacer privada
     var totalDescuento by mutableStateOf(0.0)
-    private set //hacer privada
+        private set //hacer privada
 
     var showAlert by mutableStateOf(false)
-    private set
+        private set
 
 
-    fun cal(){
+    fun cal() {
         precio = "afas"
     }
 
